@@ -1,0 +1,582 @@
+:root {
+  --bg: #0f1827;
+  --bg-elevated: #1c2638;
+  --bg-cell: #1f2a3d;
+  --bg-cell-selected: #5e7390;
+  --border: #2a3650;
+  --text: #f1f5f9;
+  --muted: #8599b1;
+  --accent: #f1f5f9;
+
+  --color-yellow: #F8D030;   /* Pikachu */
+  --color-green:  #78C850;   /* Bulbasaur/Grass */
+  --color-blue:   #6890F0;   /* Squirtle/Water */
+  --color-purple: #F08030;   /* Charmander/Fire */
+
+  --radius: 8px;
+  --gap: 8px;
+  --max-width: 560px;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  min-height: 100%;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+#app {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 16px 32px;
+}
+
+/* ---------- Header ---------- */
+.app-header {
+  display: grid;
+  grid-template-columns: 40px 1fr auto;
+  align-items: center;
+  padding: 16px 0;
+}
+.header-spacer { width: 40px; height: 40px; }
+.header-actions {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  justify-content: flex-end;
+}
+.dev-btn {
+  opacity: 0.55;
+  font-size: 15px;
+}
+.dev-btn:hover { opacity: 1; }
+.app-title {
+  margin: 0;
+  text-align: center;
+  font-size: 18px;
+  letter-spacing: 3px;
+  font-weight: 700;
+}
+.icon-btn {
+  width: 40px;
+  height: 40px;
+  background: transparent;
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  font-size: 18px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s ease;
+}
+.icon-btn:hover { background: var(--bg-elevated); }
+.icon-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+/* ---------- Home ---------- */
+.home-main { display: flex; flex-direction: column; gap: 16px; }
+.home-subtitle {
+  color: var(--muted);
+  text-align: center;
+  margin: 0 0 8px;
+  font-size: 14px;
+}
+.game-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.game-card {
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 14px 16px;
+  cursor: pointer;
+  transition: transform 0.1s ease, border-color 0.15s ease;
+}
+.game-card:hover,
+.game-card:focus-visible {
+  border-color: #4a5b7d;
+  outline: none;
+  transform: translateY(-1px);
+}
+.card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+}
+.card-number {
+  font-size: 12px;
+  color: var(--muted);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+.diff-tag {
+  font-size: 11px;
+  padding: 3px 8px;
+  border-radius: 999px;
+  background: var(--bg-cell);
+  color: var(--muted);
+  font-weight: 600;
+}
+.diff-f-cil { background: rgba(63, 153, 103, 0.22); color: #7dd6a3; }
+.diff-f-cil-m-dio { background: rgba(47, 122, 132, 0.22); color: #7cc7d1; }
+.diff-m-dio { background: rgba(213, 124, 66, 0.22); color: #f0a67a; }
+.diff-m-dio-dif-cil { background: rgba(105, 71, 181, 0.22); color: #a78ce5; }
+.diff-dif-cil { background: rgba(217, 70, 78, 0.25); color: #ef9194; }
+.card-title {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+.card-status { font-size: 13px; color: var(--muted); }
+.card-status.status-solved { color: #7dd6a3; }
+.card-status.status-progress { color: #f0c878; }
+.home-footer {
+  text-align: center;
+  margin-top: 24px;
+  color: var(--muted);
+  font-size: 12px;
+}
+.muted { opacity: 0.7; }
+
+/* ---------- Game ---------- */
+.game-main { display: flex; flex-direction: column; gap: 12px; }
+.game-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+  font-size: 13px;
+}
+.meta-left {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.game-num {
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+.meta-stat { color: var(--muted); }
+.meta-stat strong { color: var(--text); font-weight: 600; }
+.game-title-row {
+  text-align: center;
+  color: var(--muted);
+  font-size: 13px;
+  margin-bottom: 4px;
+}
+
+/* ---------- Solved bars ---------- */
+.solved-bars {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.solved-bar {
+  border-radius: var(--radius);
+  padding: 12px 14px;
+  text-align: center;
+  animation: fadeInDown 0.4s ease;
+}
+.solved-bar .bar-theme {
+  font-weight: 700;
+  font-size: 14px;
+  margin-bottom: 4px;
+}
+.solved-bar .bar-words {
+  font-size: 13px;
+  opacity: 0.95;
+  letter-spacing: 0.5px;
+}
+.color-yellow { background: var(--color-yellow); color: #fff; }
+.color-green  { background: var(--color-green);  color: #fff; }
+.color-blue   { background: var(--color-blue);   color: #fff; }
+.color-purple { background: var(--color-purple); color: #fff; }
+
+@keyframes fadeInDown {
+  from { opacity: 0; transform: translateY(-8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ---------- Grid ---------- */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--gap);
+  margin-top: 4px;
+}
+.cell {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  background: var(--bg-cell);
+  border: 1px solid transparent;
+  border-radius: var(--radius);
+  color: var(--text);
+  font-size: clamp(10px, 2.7vw, 14px);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  cursor: pointer;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  word-break: break-word;
+  overflow: hidden;
+  transition: background 0.12s ease, transform 0.08s ease, color 0.12s ease;
+}
+.cell:hover { filter: brightness(1.12); }
+.cell:active { transform: scale(0.97); }
+.cell.selected {
+  background: var(--bg-cell-selected);
+  color: #fff;
+}
+
+/* ---------- Shake ---------- */
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-4px); }
+  40% { transform: translateX(4px); }
+  60% { transform: translateX(-3px); }
+  80% { transform: translateX(3px); }
+}
+.cell.shake { animation: shake 0.4s ease; }
+
+/* ---------- Modal ---------- */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(6, 10, 20, 0.75);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  padding: 16px;
+  animation: fadeIn 0.2s ease;
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+.modal,
+.victory-card {
+  position: relative;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 24px;
+  max-width: 420px;
+  width: 100%;
+  margin: 0 auto;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.45);
+}
+.victory-container {
+  display: flex;
+  justify-content: center;
+}
+.victory-card {
+  animation: fadeInDown 0.4s ease;
+}
+.modal h2,
+.victory-card h2 {
+  margin: 0 0 16px;
+  font-size: 20px;
+  text-align: center;
+}
+.modal-close {
+  position: absolute;
+  top: 8px;
+  right: 10px;
+  background: transparent;
+  border: none;
+  color: var(--muted);
+  font-size: 24px;
+  cursor: pointer;
+  line-height: 1;
+  padding: 4px 8px;
+}
+.modal-close:hover { color: var(--text); }
+.how-list {
+  margin: 0;
+  padding-left: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 14px;
+  color: var(--muted);
+}
+.how-list li { line-height: 1.4; }
+.how-list strong { color: var(--text); }
+
+/* ---------- Victory ---------- */
+.victory-emoji {
+  text-align: center;
+  font-size: 32px;
+  letter-spacing: 4px;
+  margin: 12px 0;
+}
+.victory-stats {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  margin: 16px 0 24px;
+  color: var(--muted);
+  font-size: 14px;
+}
+.victory-stats strong {
+  color: var(--text);
+  font-size: 20px;
+  font-weight: 700;
+  display: block;
+  text-align: center;
+}
+.victory-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.btn-primary, .btn-secondary {
+  width: 100%;
+  padding: 12px 16px;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  background: var(--bg-cell);
+  color: var(--text);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+.btn-primary {
+  background: var(--color-green);
+  border-color: var(--color-green);
+}
+.btn-primary:hover { filter: brightness(1.08); }
+.btn-secondary:hover { background: var(--border); }
+
+.toast {
+  position: absolute;
+  bottom: -44px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--text);
+  color: var(--bg);
+  padding: 8px 14px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 600;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+.toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(-8px);
+}
+
+/* ---------- Error ---------- */
+.error-view {
+  margin: 48px auto;
+  text-align: center;
+  color: var(--muted);
+}
+.error-view a {
+  color: var(--text);
+  text-decoration: underline;
+}
+
+/* ---------- Responsive adjustments ---------- */
+@media (max-width: 380px) {
+  :root { --gap: 6px; }
+  .app-title { font-size: 16px; }
+  .meta-left { gap: 8px; }
+  .meta-stat { font-size: 12px; }
+}
+
+/* ---------- Home v2 (conexo.ws style) ---------- */
+.home-logo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 24px 0 8px;
+}
+.home-desc {
+  color: var(--muted);
+  text-align: center;
+  font-size: 14px;
+  margin: 0 0 16px;
+  line-height: 1.5;
+}
+.daily-card {
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px 20px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.daily-card-label {
+  font-size: 12px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--muted);
+  font-weight: 600;
+}
+.daily-card-date {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 12px;
+}
+.daily-card .btn-primary {
+  margin-top: 4px;
+}
+.week-strip {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+  margin-top: 8px;
+}
+.week-day {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  padding: 6px 0;
+  border-radius: var(--radius);
+  cursor: default;
+}
+.week-day-name {
+  font-size: 10px;
+  letter-spacing: 0.5px;
+  color: var(--muted);
+  text-transform: lowercase;
+}
+.week-day-num {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--muted);
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+}
+.week-day.today .week-day-num {
+  background: var(--color-yellow);
+  color: var(--bg);
+}
+.btn-jogos-anteriores {
+  width: 100%;
+  padding: 13px 16px;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  background: var(--bg-elevated);
+  color: var(--text);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 8px;
+}
+.btn-jogos-anteriores:hover { background: var(--border); }
+
+/* ---------- Calendar ---------- */
+.calendar-main {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding-top: 8px;
+}
+.calendar-nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+}
+.calendar-month-label {
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  min-width: 160px;
+  text-align: center;
+}
+.calendar-grid-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.calendar-header-row,
+.calendar-row {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+}
+.calendar-header-cell {
+  text-align: center;
+  font-size: 11px;
+  letter-spacing: 0.5px;
+  text-transform: lowercase;
+  color: var(--muted);
+  padding: 4px 0;
+}
+.calendar-cell {
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--muted);
+  cursor: default;
+  background: var(--bg-elevated);
+}
+.calendar-cell.empty {
+  background: transparent;
+}
+.calendar-cell.played {
+  background: rgba(120, 200, 80, 0.22);
+  color: #a0e080;
+  cursor: pointer;
+}
+.calendar-cell.played:hover {
+  background: rgba(120, 200, 80, 0.35);
+}
+.calendar-cell.today {
+  border: 2px solid var(--color-yellow);
+  color: var(--color-yellow);
+}
+.calendar-cell.future {
+  opacity: 0.3;
+}
