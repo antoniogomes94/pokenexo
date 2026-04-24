@@ -7,6 +7,8 @@
   --text: #f1f5f9;
   --muted: #8599b1;
   --accent: #f1f5f9;
+  --modal-backdrop: rgba(6, 10, 20, 0.75);
+  --shadow-card: 0 12px 40px rgba(0, 0, 0, 0.45);
 
   --color-yellow: #F8D030;   /* Pikachu */
   --color-green:  #78C850;   /* Bulbasaur/Grass */
@@ -16,6 +18,19 @@
   --radius: 8px;
   --gap: 8px;
   --max-width: 560px;
+}
+
+[data-theme="light"] {
+  --bg: #f5f7fa;
+  --bg-elevated: #ffffff;
+  --bg-cell: #e8ecf1;
+  --bg-cell-selected: #4a5b7d;
+  --border: #d4dbe5;
+  --text: #0f1827;
+  --muted: #5a6c85;
+  --accent: #0f1827;
+  --modal-backdrop: rgba(15, 24, 39, 0.35);
+  --shadow-card: 0 12px 40px rgba(15, 24, 39, 0.12);
 }
 
 * { box-sizing: border-box; }
@@ -269,7 +284,7 @@ body {
 .modal-backdrop {
   position: fixed;
   inset: 0;
-  background: rgba(6, 10, 20, 0.75);
+  background: var(--modal-backdrop);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -291,7 +306,7 @@ body {
   max-width: 420px;
   width: 100%;
   margin: 0 auto;
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.45);
+  box-shadow: var(--shadow-card);
 }
 .victory-container {
   display: flex;
@@ -580,3 +595,10 @@ body {
 .calendar-cell.future {
   opacity: 0.3;
 }
+
+/* ---------- Theme toggle ---------- */
+.theme-toggle svg { display: block; }
+.theme-toggle .icon-sun { display: none; }
+.theme-toggle .icon-moon { display: block; }
+[data-theme="light"] .theme-toggle .icon-sun { display: block; }
+[data-theme="light"] .theme-toggle .icon-moon { display: none; }
