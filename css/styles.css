@@ -470,6 +470,9 @@ body {
 }
 .daily-card .btn-primary {
   margin-top: 4px;
+  background: #EE1515;
+  border-color: #EE1515;
+  color: #fff;
 }
 .week-strip {
   display: grid;
